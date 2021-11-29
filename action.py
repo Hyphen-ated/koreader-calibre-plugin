@@ -370,6 +370,7 @@ class KoreaderAction(InterfaceAction):
             'KOBOTOUCH',
             'KOBOTOUCHEXTENDED',
             'SMART_DEVICE_APP',
+            'USER_DEFINED',
         ]
         unsupported_devices = [
             'MTP_DEVICE',
