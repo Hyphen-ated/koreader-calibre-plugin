@@ -1,4 +1,4 @@
-version = 0.2.4-alpha
+version = 0.2.8-alpha
 zip_file = releases/KOReader Sync v$(version).zip
 zip_contents = about.txt LICENSE plugin-import-name-koreader.txt *.py *.md  images/*.png
 
@@ -12,3 +12,6 @@ zip:
 
 dev:
 	@ calibre-customize -b .; calibre-debug -g
+
+load:
+	@ calibre-customize -a "$(zip_file)"; calibre-debug -g

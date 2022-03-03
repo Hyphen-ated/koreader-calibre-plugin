@@ -1,5 +1,11 @@
 # KOReader calibre plugin
 
+> **Hi,**
+>
+> **I'm looking for someone who wants to help me maintain this plugin, because I don't use it all that much anymore. Please contact me if you're up for this.**
+>
+> **Harm**
+
 A calibre plugin to synchronize metadata from KOReader to calibre.
 
 [KOReader](https://koreader.rocks/) creates sidecar files that hold read progress and annotations. This plugin reads the data from those sidecar files and updates calibre's metadata based on them. It is inspired by [the Kobo Utilities plugin](https://www.mobileread.com/forums/showthread.php?t=215339), that synchronizes reading progress between the original Kobo firmware (“Nickel”) and custom columns in calibre.
@@ -49,10 +55,13 @@ Releases will also be uploaded to [this plugin thread on the MobileRead Forums](
 
 This plugin has been tested successfully with:
 - Kobo Aura connected over USB, which means it will probably work for all comparable Kobo devices (`KOBO` and `KOBOTOUCH`)
-- Kobo Aura H2O over USB (`KOBOTOUCHEXTENDED`)
+- Kobo Aura H2O over USB (`KOBOTOUCHEXTENDED`, see [#6](https://todo.sr.ht/~harmtemolder/koreader-calibre-plugin/6) for details)
 - Kobo Aura connected wirelessly, which means it will probably work for all calibre connect devices (`SMART_DEVICE_APP`)
 - A connected folder (`FOLDER_DEVICE`)
-- Kindle Keyboard (`KINDLE2`, see [#1](https://todo.sr.ht/~harmtemolder/koreader-calibre-plugin/1) for details))
+- Kindle Keyboard (`KINDLE2`, see [#1](https://todo.sr.ht/~harmtemolder/koreader-calibre-plugin/1) for details)
+- Tolino Vision 4 HD (`TOLINO`, see [this comment](https://www.mobileread.com/forums/showpost.php?p=4179705&postcount=28) for details)
+- PocketBook Touch Lux 5 (which uses the `POCKETBOOK626` driver, so it will probably work for all comparable PocketBook devices, see [#8](https://todo.sr.ht/~harmtemolder/koreader-calibre-plugin/8) for details)
+- PocketBooks that use the `POCKETBOOK622` driver
 
 This plugin is not compatible with:
 - `MTP_DEVICE` (see [#2](https://todo.sr.ht/~harmtemolder/koreader-calibre-plugin/2) for details)
@@ -75,6 +84,7 @@ If you encounter any issues with the plugin, please submit them [here](https://t
 - calibre allows you to auto-connect to a folder device on boot, which greatly speeds up your workflow when testing. You can find this under “Preferences” > “Tweaks”, search for `auto_connect_to_folder`. Point that to the `dummy_device` folder in this repository. (I have included royalty free EPUBs for your and my convenience.)
 - If you're testing and don't actually want to update any metadata, set `DRY_RUN` to `True` in `__init__.py`.
 - I work in PyCharm, which offers a remote debugging server. Follow [these steps](https://harmtemolder.com/calibre-development-in-pycharm/) to set that up. To enable that in this plugin, set `PYDEVD` to `True` in `__init__.py`.You might need to change `sys.path.append` in `action.py`.
+- The supported device drivers can be found in the `supported_devices` list at line 366 in `action.py`. Adding a new type here is the first step to adding support, but make sure all features are tested thoroughly before releasing a version with an added device
 
 ### Downloading dependencies
 
@@ -90,12 +100,18 @@ Make sure you have the dependencies. Then:
 make dev
 ```
 
-### Building a release
-
-Make sure you have the dependencies and have set the correct version number in `Makefile`. Then:
+Alternatively, build a release and load that:
 
 ```shell
-make
+make zip load
+```
+
+### Building a release
+
+Make sure you have the dependencies and have set the correct version number in `__init__.py`, `pluginIndexKOReaderSync.txt` and `Makefile`. Then:
+
+```shell
+make zip
 ```
 
 ### Debugging a release
@@ -121,6 +137,30 @@ All notable changes to this project will be documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.2.7-alpha] - 2022-02-18
+
+### Added
+
+- Enable `TOLINO`, for real this time
+
+## [0.2.6-alpha] - 2022-02-04
+
+### Added
+
+- Enable `POCKETBOOK622`
+
+## [0.2.5-alpha] - 2021-12-20
+
+### Added
+
+- Enable `POCKETBOOK626`
+
+## [0.2.4-alpha] - 2021-12-12
+
+### Added
+
+- Enable `TOLINO`
 
 ## [0.2.3-alpha] - 2021-11-23
 
@@ -206,4 +246,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 [0.2.1-alpha]: https://git.sr.ht/~harmtemolder/koreader-calibre-plugin/tree/main/item/releases/KOReader%20Sync%20v0.2.1-alpha.zip
 [0.2.2-alpha]: https://git.sr.ht/~harmtemolder/koreader-calibre-plugin/tree/main/item/releases/KOReader%20Sync%20v0.2.2-alpha.zip
 [0.2.3-alpha]: https://git.sr.ht/~harmtemolder/koreader-calibre-plugin/tree/main/item/releases/KOReader%20Sync%20v0.2.3-alpha.zip
+[0.2.4-alpha]: https://git.sr.ht/~harmtemolder/koreader-calibre-plugin/tree/main/item/releases/KOReader%20Sync%20v0.2.4-alpha.zip
+[0.2.5-alpha]: https://git.sr.ht/~harmtemolder/koreader-calibre-plugin/tree/main/item/releases/KOReader%20Sync%20v0.2.5-alpha.zip
+[0.2.5-alpha]: https://git.sr.ht/~harmtemolder/koreader-calibre-plugin/tree/main/item/releases/KOReader%20Sync%20v0.2.6-alpha.zip
+[0.2.5-alpha]: https://git.sr.ht/~harmtemolder/koreader-calibre-plugin/tree/main/item/releases/KOReader%20Sync%20v0.2.7-alpha.zip
 [unreleased]: https://git.sr.ht/~harmtemolder/koreader-calibre-plugin/tree

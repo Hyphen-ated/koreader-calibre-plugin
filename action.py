@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from functools import partial
-import difflib
 import io
 import json
 import re
@@ -369,7 +368,10 @@ class KoreaderAction(InterfaceAction):
             'KOBO',
             'KOBOTOUCH',
             'KOBOTOUCHEXTENDED',
+            'POCKETBOOK622',
+            'POCKETBOOK626',
             'SMART_DEVICE_APP',
+            'TOLINO',
             'USER_DEFINED',
         ]
         unsupported_devices = [
