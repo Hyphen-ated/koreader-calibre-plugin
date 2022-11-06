@@ -4,8 +4,10 @@ from datetime import datetime
 from functools import partial
 import io
 import json
+import os
 import re
 import sys
+import time
 from zoneinfo import ZoneInfo
 
 from PyQt5.Qt import QUrl  # pylint: disable=no-name-in-module
@@ -273,11 +275,11 @@ class KoreaderAction(InterfaceAction):
                 return None
 
             debug_print('parsing {}'.format(path))
-            parsed_contents = self.parse_sidecar_lua(decoded_contents)
+            parsed_contents = self.parse_sidecar_lua(decoded_contents, path)
 
         return parsed_contents
 
-    def parse_sidecar_lua(self, sidecar_lua):
+    def parse_sidecar_lua(self, sidecar_lua, path):
         """Parses a sidecar Lua file into a Python dict
 
         :param sidecar_lua: the contents of a sidecar Lua as a str
@@ -310,6 +312,15 @@ class KoreaderAction(InterfaceAction):
                     'first_bookmark': min(bookmark_dates),
                     'last_bookmark': max(bookmark_dates),
                 }
+
+        if os.path.exists(path):
+            modify_time = os.path.getmtime(path)
+            last_read = time.strftime('%Y-%m-%d %H:%M:%S',
+                                      time.localtime(modify_time))
+            if 'calculated' not in decoded_lua.keys():
+                decoded_lua['calculated'] = {}
+
+            decoded_lua['calculated']['last_read_date'] = last_read
 
         return decoded_lua
 

@@ -49,6 +49,13 @@ COLUMNS = [{
     'type': 'text',
     'sidecar_property': ['last_xpointer'],
 }, {
+    'name': 'column_last_read_date',
+    'label': 'Last read date column:',
+    'tooltip': 'A “Date” column to store the date on which the book was last\n'
+               'read. (based on the modify date of the KOReader metadata file)',
+    'type': 'datetime',
+    'sidecar_property': ['calculated', 'last_read_date']
+}, {
     'name': 'column_rating',
     'label': 'Rating column:',
     'tooltip': 'A “Rating” column to store your rating of the book,\n'
